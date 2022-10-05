@@ -1,6 +1,6 @@
 `pi = `π = 22/7
 `phi = `Φ = (1 + √5) / 2
-`imag = i
+`imag = 1i
 
 set even = for (k exists `z)
            k / 2 exists `z
