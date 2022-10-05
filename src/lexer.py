@@ -1,7 +1,7 @@
 import string
 from typing import Iterator
 
-from chars import BACKTICK, COMPLEX_DIGITS, L_PARENS, OPERATORS, R_PARENS
+from chars import BACKTICK, COMPLEX_DIGITS, L_PARENS, OPERATORS, R_PARENS, REAL_DIGITS
 from tokens import Token, TokenType
 
 
@@ -53,7 +53,7 @@ class Lexer:
             elif self.current_char in R_PARENS:
                 yield Token(TokenType.SYM_RPAREN)
 
-            elif self.current_char in COMPLEX_DIGITS:
+            elif self.current_char in REAL_DIGITS:
                 yield self.lex_number()
 
             else:
