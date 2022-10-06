@@ -141,8 +141,6 @@ class Lexer:
                 return Token(TokenType.CONST, s)
 
 
-
-
 def main():
     source = open("./sample/source.bml", encoding="utf-8").read()
 
