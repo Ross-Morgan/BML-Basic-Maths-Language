@@ -4,13 +4,13 @@ __all__ = [
 
 KEYWORDS = [
     "set", "exists", "for", "superset", "subset", "difference"
-] 
+]
 
 
 REAL_DIGITS = "0123456789."
 COMPLEX_DIGITS = REAL_DIGITS + "i"
 
-OPERATORS = "+-/*^√="
+OPERATORS = "+-/*^√=<>≤≥"
 
 COMMA = ","
 BACKTICK = "`"
