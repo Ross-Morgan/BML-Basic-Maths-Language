@@ -1,1 +1,1 @@
-from custom_logger import AppLogger
+from .custom_logger import AppLogger
