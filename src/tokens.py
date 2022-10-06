@@ -3,9 +3,11 @@ from enum import Enum, auto
 
 
 class TokenType(Enum):
-    KWD_SET = auto()
     KWD_EXISTS = auto()
     KWD_FOR = auto()
+    KWD_SET = auto()
+    KWD_SUBSET = auto()
+    KWD_SUPERSET = auto()
 
     OP_SQRT = auto()
 
