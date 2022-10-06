@@ -2,7 +2,6 @@
 
 For any set, subset checks if the first set is contained by the second
 
-
 ## Example
 
 ```python
