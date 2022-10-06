@@ -4,6 +4,9 @@ from typing import Iterator
 
 from chars import BACKTICK, COMPLEX_DIGITS, PARENS, OPERATORS, REAL_DIGITS
 from tokens import Token, TokenType
+from logger import AppLogger
+
+logger = AppLogger()
 
 
 class Lexer:
@@ -133,19 +136,26 @@ class Lexer:
 
         s = "".join(l)
 
-        match s.lower():
-            case "exists":
-                return Token(TokenType.KWD_EXISTS)
-            case "for":
-                return Token(TokenType.KWD_FOR)
-            case "set":
-                return Token(TokenType.KWD_SET)
-            case "subset":
-                return Token(TokenType.KWD_SUBSET)
-            case "superset":
-                return Token(TokenType.KWD_SUPERSET)
-            case _:
-                return Token(TokenType.CONST, s)
+        if s.lower() in KEYWORDS:
+            match s.lower():
+                case "exists":
+                    return Token(TokenType.KWD_EXISTS)
+                case "for":
+                    return Token(TokenType.KWD_FOR)
+                case "set":
+                    return Token(TokenType.KWD_SET)
+                case "subset":
+                    return Token(TokenType.KWD_SUBSET)
+                case "superset":
+                    return Token(TokenType.KWD_SUPERSET)
+                case "union":
+                    return Token(TokenType.KWD_UNION)
+                case "intersection":
+                    return Token(TokenType.KWD_INTERSECTION)
+                case _:
+                    raise ValueError(f"Unhandled keyword: '{s}'")
+
+        return Token(TokenType.CONST, s)
 
 
 def main():
