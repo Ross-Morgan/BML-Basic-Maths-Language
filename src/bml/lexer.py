@@ -1,10 +1,9 @@
 import string
-from token import COMMA
 from typing import Iterator
 
 import chars
-from tokens import Token, TokenType
 from logger import AppLogger
+from tokens import Token, TokenType
 
 logger = AppLogger("logger")
 
@@ -34,7 +33,7 @@ class Lexer:
             elif self.current_char == chars.BACKTICK:
                 yield self.lex_symbol_name()
 
-            elif self.current_char == COMMA:
+            elif self.current_char == chars.COMMA:
                 yield Token(TokenType.SYM_COMMA)
 
             elif self.current_char in chars.OPERATORS:
