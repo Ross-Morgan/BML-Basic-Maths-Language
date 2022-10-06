@@ -3,5 +3,4 @@
 `imag = 1i
 
 set even = for (k exists `z) => k / 2 exists `z
-
 set odd = for (k exists `z) => (k + 1) / 2 exists `z
