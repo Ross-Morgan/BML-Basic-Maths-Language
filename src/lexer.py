@@ -112,12 +112,16 @@ class Lexer:
         s = "".join(l)
 
         match s.lower():
-            case "set":
-                return Token(TokenType.KWD_SET)
             case "exists":
                 return Token(TokenType.KWD_EXISTS)
             case "for":
                 return Token(TokenType.KWD_FOR)
+            case "set":
+                return Token(TokenType.KWD_SET)
+            case "subset":
+                return Token(TokenType.KWD_SUBSET)
+            case "superset":
+                return Token(TokenType.KWD_SUPERSET)
             case _:
                 return Token(TokenType.CONST, s)
 
