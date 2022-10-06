@@ -22,8 +22,14 @@ class TokenType(Enum):
 
     SYM_CUSTOM = auto()
 
-    SYM_LPAREN = auto()
-    SYM_RPAREN = auto()
+    SYM_COMMA = auto()
+
+    SYM_LRPAREN = auto()
+    SYM_RRPAREN = auto()
+    SYM_LSPAREN = auto()
+    SYM_RSPAREN = auto()
+    SYM_LCPAREN = auto()
+    SYM_RCPAREN = auto()
 
     TYPE_REAL = auto()
     TYPE_COMPLEX = auto()

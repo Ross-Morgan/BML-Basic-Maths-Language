@@ -8,12 +8,11 @@ COMPLEX_DIGITS = REAL_DIGITS + "i"
 
 OPERATORS = "+-/*^√="
 
-
+COMMA = ","
 BACKTICK = "`"
 EQUALS = "="
 
-L_PARENS = ")]}"
-R_PARENS = "([{"
+PARENS = r"([{}])"
 
 SQRT = "√"
 

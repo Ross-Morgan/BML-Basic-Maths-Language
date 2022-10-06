@@ -1,7 +1,8 @@
 import string
+from token import COMMA
 from typing import Iterator
 
-from chars import BACKTICK, COMPLEX_DIGITS, L_PARENS, OPERATORS, R_PARENS, REAL_DIGITS
+from chars import BACKTICK, COMPLEX_DIGITS, PARENS, OPERATORS, REAL_DIGITS
 from tokens import Token, TokenType
 
 
@@ -30,6 +31,9 @@ class Lexer:
             elif self.current_char == BACKTICK:
                 yield self.lex_symbol_name()
 
+            elif self.current_char == COMMA:
+                yield Token(TokenType.SYM_COMMA)
+
             elif self.current_char in OPERATORS:
                 match self.current_char:
                     case "+":
@@ -47,11 +51,22 @@ class Lexer:
                     case _:
                         raise ValueError(f"Unhandled operator: '{self.current_char}'")
 
-            elif self.current_char in L_PARENS:
-                yield Token(TokenType.SYM_LPAREN)
-
-            elif self.current_char in R_PARENS:
-                yield Token(TokenType.SYM_RPAREN)
+            elif self.current_char in PARENS:
+                match self.current_char:
+                    case "(":
+                        yield Token(TokenType.SYM_LRPAREN)
+                    case "[":
+                        yield Token(TokenType.SYM_LSPAREN)
+                    case "{":
+                        yield Token(TokenType.SYM_LCPAREN)
+                    case ")":
+                        yield Token(TokenType.SYM_RRPAREN)
+                    case "]":
+                        yield Token(TokenType.SYM_RSPAREN)
+                    case "}":
+                        yield Token(TokenType.SYM_RCPAREN)
+                    case _:
+                        raise ValueError(f"Unhandled bracket: '{self.current_char}'")
 
             elif self.current_char in REAL_DIGITS:
                 yield self.lex_number()
