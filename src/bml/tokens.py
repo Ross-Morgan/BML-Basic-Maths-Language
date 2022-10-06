@@ -21,7 +21,7 @@ class TokenType(Enum):
     OP_EQ = auto()    # =
     OP_ADD = auto()   # +
     OP_SUB = auto()   # -
-    OP_MUL = auto()   #`*
+    OP_MUL = auto()   # *
     OP_DIV = auto()   # /
 
     CONST = auto()
