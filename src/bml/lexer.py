@@ -159,16 +159,3 @@ class Lexer:
                     raise ValueError(f"Unhandled keyword: '{s}'")
 
         return Token(TokenType.CONST, s)
-
-
-def main():
-    source = open("./sample/source.bml", encoding="utf-8").read()
-
-    lexer = Lexer(source)
-    tokens = lexer.lex()
-
-    print(*list(tokens), sep="\n")
-
-
-if __name__ == "__main__":
-    main()
