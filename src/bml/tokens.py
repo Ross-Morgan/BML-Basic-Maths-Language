@@ -5,12 +5,18 @@ from enum import Enum, auto
 class TokenType(Enum):
     KWD_EXISTS = auto()        # exists
     KWD_FOR = auto()           # for
+
+    KWD_MATRIX = auto()        # matrix
     KWD_SET = auto()           # set
+    KWD_FUNC = auto()          # func
+
+    # Set operations
     KWD_SUBSET = auto()        # subset
     KWD_SUPERSET = auto()      # superset
     KWD_UNION = auto()         # union
     KWD_INTERSECTION = auto()  # interection
 
+    OP_MOD = auto()   # mod
     OP_SQRT = auto()  # √
     OP_EQ = auto()    # =
     OP_ADD = auto()   # +
