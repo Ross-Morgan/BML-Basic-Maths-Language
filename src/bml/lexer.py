@@ -6,7 +6,7 @@ import chars
 from tokens import Token, TokenType
 from logger import AppLogger
 
-logger = AppLogger()
+logger = AppLogger("logger")
 
 
 class Lexer:
@@ -54,12 +54,13 @@ class Lexer:
 
                         if self.current_char == ">":
                             yield Token(TokenType.SYM_ARROW)
+                            self.advance()
                         else:
                             yield Token(TokenType.OP_EQ)
 
                         continue
                     case _:
-                        raise ValueError(f"Unhandled operator: '{self.current_char}'")
+                        raise ValueError(f"Unhandled operator: '{self.current_char}'")  # noqa
 
             elif self.current_char in chars.PARENS:
                 match self.current_char:
@@ -76,7 +77,7 @@ class Lexer:
                     case "}":
                         yield Token(TokenType.SYM_RCPAREN)
                     case _:
-                        raise ValueError(f"Unhandled bracket: '{self.current_char}'")
+                        logger.error(f"Unhandled bracket: '{self.current_char}'")  # noqa
 
             elif self.current_char in chars.REAL_DIGITS:
                 yield self.lex_number()
@@ -93,7 +94,7 @@ class Lexer:
         while True:
             self.advance()
 
-            if self.current_char is None or self.current_char in string.whitespace:
+            if self.current_char is None or self.current_char in string.whitespace:  # noqa
                 break
 
             name.append(self.current_char)
@@ -101,7 +102,7 @@ class Lexer:
         return Token(TokenType.SYM_CUSTOM, "".join(name))
 
     def lex_number(self) -> Token:
-        print(f"Lexing number: '{self.current_char}'")
+        logger.info(f"Lexing number: '{self.current_char}'")
         n = [self.current_char]
 
         self.current_char = ""
@@ -109,7 +110,7 @@ class Lexer:
         while True:
             self.advance()
 
-            if self.current_char is None or self.current_char not in chars.COMPLEX_DIGITS:
+            if self.current_char is None or self.current_char not in chars.COMPLEX_DIGITS:  # noqa
                 break
 
             n.append(self.current_char)
@@ -118,23 +119,26 @@ class Lexer:
             return Token(TokenType.TYPE_COMPLEX, complex(0, 1))
 
         if n[-1] == "i":
-            return Token(TokenType.TYPE_COMPLEX, complex(0, float("".join(n[:-1]))))
+            return Token(TokenType.TYPE_COMPLEX, complex(0, float("".join(n[:-1]))))  # noqa
+
+        if "." in n:
+            return Token(TokenType.TYPE_REAL, int("".join(n)))
         return Token(TokenType.TYPE_REAL, float("".join(n)))
 
     def lex_text(self) -> Token:
         print(f"Lexing other: '{self.current_char}'")
 
-        l = [self.current_char]
+        letters = [self.current_char]
 
         while True:
             self.advance()
 
-            if self.current_char is None or self.current_char not in string.ascii_letters:
+            if self.current_char is None or self.current_char not in string.ascii_letters:  # noqa
                 break
 
-            l.append(self.current_char)
+            letters.append(self.current_char)
 
-        s = "".join(l)
+        s = "".join(letters)
 
         if s.lower() in chars.KEYWORDS:
             match s.lower():
