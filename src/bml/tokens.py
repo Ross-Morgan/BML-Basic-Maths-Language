@@ -47,3 +47,6 @@ class TokenType(Enum):
 class Token:
     tt: TokenType
     value: object = None
+
+    def __repr__(self) -> str:
+        return f"Token<type: {self.tt}, value: {self.value}>"
