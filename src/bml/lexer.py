@@ -2,7 +2,7 @@ import string
 from token import COMMA
 from typing import Iterator
 
-from chars import BACKTICK, COMPLEX_DIGITS, PARENS, OPERATORS, REAL_DIGITS
+import chars
 from tokens import Token, TokenType
 from logger import AppLogger
 
@@ -31,13 +31,13 @@ class Lexer:
                 self.advance()
                 continue
 
-            elif self.current_char == BACKTICK:
+            elif self.current_char == chars.BACKTICK:
                 yield self.lex_symbol_name()
 
             elif self.current_char == COMMA:
                 yield Token(TokenType.SYM_COMMA)
 
-            elif self.current_char in OPERATORS:
+            elif self.current_char in chars.OPERATORS:
                 match self.current_char:
                     case "+":
                         yield Token(TokenType.OP_ADD)
@@ -61,7 +61,7 @@ class Lexer:
                     case _:
                         raise ValueError(f"Unhandled operator: '{self.current_char}'")
 
-            elif self.current_char in PARENS:
+            elif self.current_char in chars.PARENS:
                 match self.current_char:
                     case "(":
                         yield Token(TokenType.SYM_LRPAREN)
@@ -78,7 +78,7 @@ class Lexer:
                     case _:
                         raise ValueError(f"Unhandled bracket: '{self.current_char}'")
 
-            elif self.current_char in REAL_DIGITS:
+            elif self.current_char in chars.REAL_DIGITS:
                 yield self.lex_number()
 
             else:
@@ -109,7 +109,7 @@ class Lexer:
         while True:
             self.advance()
 
-            if self.current_char is None or self.current_char not in COMPLEX_DIGITS:
+            if self.current_char is None or self.current_char not in chars.COMPLEX_DIGITS:
                 break
 
             n.append(self.current_char)
@@ -136,7 +136,7 @@ class Lexer:
 
         s = "".join(l)
 
-        if s.lower() in KEYWORDS:
+        if s.lower() in chars.KEYWORDS:
             match s.lower():
                 case "exists":
                     return Token(TokenType.KWD_EXISTS)
