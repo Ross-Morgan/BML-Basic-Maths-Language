@@ -47,7 +47,14 @@ class Lexer:
                     case "√":
                         yield Token(TokenType.OP_SQRT)
                     case "=":
-                        yield Token(TokenType.OP_EQ)
+                        self.advance()
+
+                        if self.current_char == ">":
+                            yield Token(TokenType.SYM_ARROW)
+                        else:
+                            yield Token(TokenType.OP_EQ)
+
+                        continue
                     case _:
                         raise ValueError(f"Unhandled operator: '{self.current_char}'")
 
