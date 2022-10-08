@@ -1,9 +1,13 @@
-from dataclasses import dataclass
+from copy import deepcopy
+
+from tokens import Token, TokenType
+
+import syntax as ast
 
 
-@dataclass(frozen=True, slots=True)
 class Parser:
-    tokens: list[str]
+    def __init__(self, tokens: list[Token]):
+        self.tokens = deepcopy(tokens)
 
     def parse(self):
         pass
