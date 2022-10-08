@@ -1,7 +1,7 @@
 import string
 from typing import Iterator
 
-import chars
+from syntax import chars
 from logger import AppLogger
 from tokens import Token, TokenType
 
@@ -155,6 +155,8 @@ class Lexer:
                     return Token(TokenType.KWD_UNION)
                 case "intersection":
                     return Token(TokenType.KWD_INTERSECTION)
+                case "mod":
+                    return Token(TokenType.OP_MOD)
                 case _:
                     raise ValueError(f"Unhandled keyword: '{s}'")
 
