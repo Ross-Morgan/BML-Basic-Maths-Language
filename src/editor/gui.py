@@ -15,8 +15,6 @@ class EditorWidget(QtWidgets.QWidget):
         self.layout = QtWidgets.QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.highlighter = highlighter.new_highlighter()
-
         self.setup_ui()
 
     def setup_ui(self):
@@ -26,7 +24,7 @@ class EditorWidget(QtWidgets.QWidget):
         self.text_box.setStyleSheet("margin-top: 20px")
 
     def setup_editor(self):
-        self.highlighter = highlighter.new_highlighter()
+        self.highlighter = highlighter.new_highlighter(self.text_box.document())
 
     def resizeEvent(self, new: QtGui.QResizeEvent) -> None:
         self.text_box.resize(new.size())
