@@ -20,7 +20,7 @@ class EditorWidget(QtWidgets.QWidget):
         self.text_box = QtWidgets.QPlainTextEdit(self)
         self.text_box.resize(self.size())
         self.text_box.setFont(QtGui.QFont("Consolas"))
-        self.text_box.setStyleSheet("margin-top: 20px; background-color: #232323; color: white;")  # noqa
+        self.text_box.setStyleSheet("background-color: #232323; color: white;")  # noqa
 
     def setup_editor(self):
         self.highlighter = highlighter.new_highlighter()
