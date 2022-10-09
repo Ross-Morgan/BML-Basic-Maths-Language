@@ -27,6 +27,9 @@ class Lexer:
                 # An empty if will just rope it into the if/elif structure
                 # making sure it cannot run any other lexing functions
                 # on a whitespace
+                if self.current_char == "\n":
+                    yield Token(TokenType.NEWLINE)
+
                 self.advance()
                 continue
 
@@ -37,46 +40,10 @@ class Lexer:
                 yield Token(TokenType.SYM_COMMA)
 
             elif self.current_char in chars.OPERATORS:
-                match self.current_char:
-                    case "+":
-                        yield Token(TokenType.OP_ADD)
-                    case "-":
-                        yield Token(TokenType.OP_SUB)
-                    case "*":
-                        yield Token(TokenType.OP_MUL)
-                    case "/":
-                        yield Token(TokenType.OP_DIV)
-                    case "√":
-                        yield Token(TokenType.OP_SQRT)
-                    case "=":
-                        self.advance()
-
-                        if self.current_char == ">":
-                            yield Token(TokenType.SYM_ARROW)
-                            self.advance()
-                        else:
-                            yield Token(TokenType.OP_EQ)
-
-                        continue
-                    case _:
-                        raise ValueError(f"Unhandled operator: '{self.current_char}'")  # noqa
+                yield self.lex_operator()
 
             elif self.current_char in chars.PARENS:
-                match self.current_char:
-                    case "(":
-                        yield Token(TokenType.SYM_LRPAREN)
-                    case "[":
-                        yield Token(TokenType.SYM_LSPAREN)
-                    case "{":
-                        yield Token(TokenType.SYM_LCPAREN)
-                    case ")":
-                        yield Token(TokenType.SYM_RRPAREN)
-                    case "]":
-                        yield Token(TokenType.SYM_RSPAREN)
-                    case "}":
-                        yield Token(TokenType.SYM_RCPAREN)
-                    case _:
-                        logger.error(f"Unhandled bracket: '{self.current_char}'")  # noqa
+                yield self.lex_paren()
 
             elif self.current_char in chars.REAL_DIGITS:
                 yield self.lex_number()
@@ -85,6 +52,46 @@ class Lexer:
                 yield self.lex_text()
 
             self.advance()
+
+    def lex_operator(self) -> Token:
+        match self.current_char:
+            case "+":
+                return Token(TokenType.OP_ADD)
+            case "-":
+                return Token(TokenType.OP_SUB)
+            case "*":
+                return Token(TokenType.OP_MUL)
+            case "/":
+                return Token(TokenType.OP_DIV)
+            case "√":
+                return Token(TokenType.OP_SQRT)
+            case "=":
+                self.advance()
+
+                if self.current_char == ">":
+                    self.advance()
+                    return Token(TokenType.SYM_ARROW)
+                else:
+                    return Token(TokenType.OP_EQ)
+            case _:
+                logger.error(f"Unhandled operator: '{self.current_char}'")  # noqa
+
+    def lex_paren(self) -> Token:
+        match self.current_char:
+            case "(":
+                return Token(TokenType.SYM_LRPAREN)
+            case "[":
+                return Token(TokenType.SYM_LSPAREN)
+            case "{":
+                return Token(TokenType.SYM_LCPAREN)
+            case ")":
+                return Token(TokenType.SYM_RRPAREN)
+            case "]":
+                return Token(TokenType.SYM_RSPAREN)
+            case "}":
+                return Token(TokenType.SYM_RCPAREN)
+            case _:
+                logger.error(f"Unhandled bracket: '{self.current_char}'")  # noqa
 
     def lex_symbol_name(self) -> Token:
         self.current_char = ""
@@ -160,6 +167,6 @@ class Lexer:
                 case "mod":
                     return Token(TokenType.OP_MOD)
                 case _:
-                    raise ValueError(f"Unhandled keyword: '{s}'")
+                    logger.error(f"Unhandled keyword: '{s}'")
 
         return Token(TokenType.CONST, s)
