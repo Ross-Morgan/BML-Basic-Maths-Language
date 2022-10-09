@@ -3,7 +3,8 @@ from enum import Enum, auto
 
 
 class TokenType(Enum):
-    NEWLINE = auto()           # \n
+    NEWLINE = auto()           # <\n>
+    EOF = auto()               # <eof>
 
     KWD_EXISTS = auto()        # exists
     KWD_FOR = auto()           # for
