@@ -15,6 +15,7 @@ class TokenType(Enum):
     KWD_SUPERSET = auto()      # superset
     KWD_UNION = auto()         # union
     KWD_INTERSECTION = auto()  # interection
+    KWD_DIFFERENCE = auto()    # difference
 
     OP_MOD = auto()            # mod
     OP_SQRT = auto()           # √
