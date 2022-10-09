@@ -53,6 +53,8 @@ class Lexer:
 
             self.advance()
 
+        yield Token(TokenType.EOF)
+
     def lex_operator(self) -> Token:
         match self.current_char:
             case "+":
