@@ -155,6 +155,8 @@ class Lexer:
                     return Token(TokenType.KWD_UNION)
                 case "intersection":
                     return Token(TokenType.KWD_INTERSECTION)
+                case "difference":
+                    return Token(TokenType.KWD_DIFFERENCE)
                 case "mod":
                     return Token(TokenType.OP_MOD)
                 case _:
