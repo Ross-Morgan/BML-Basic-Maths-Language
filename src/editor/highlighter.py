@@ -35,7 +35,7 @@ def fmt(colour: QtCore.Qt.GlobalColor) -> QtGui.QTextCharFormat:
     return f
 
 
-def new_highlighter():
+def new_highlighter(document: QtGui.QTextDocument):
     patterns: dict[str, PatternFormat] = {
         "for": None,
         "exists": None,
@@ -80,7 +80,7 @@ def new_highlighter():
     patterns["exists"].pattern = re.compile(r"(?<=\s)exists(?=\s)", re.MULTILINE)
     patterns["exists"].text_format = fmt(COLOUR.green)
 
-    syntax_highlighter = BMLHighlighter(parent=None)
+    syntax_highlighter = BMLHighlighter(parent=document)
 
     for f in patterns.values():
         syntax_highlighter.add_mapping(f.pattern, f.text_format)
