@@ -68,7 +68,7 @@ def new_highlighter(document: QtGui.QTextDocument):
         if patterns[kwd] is None:
             patterns[kwd] = PatternFormat()
 
-    patterns["set"].pattern = re.compile(r"^set(?=\s)", re.MULTILINE),
+    patterns["set"].pattern = re.compile(r"^set(?=\s)", re.MULTILINE)
     patterns["set"].text_format = fmt(COLOUR.cyan)
 
     patterns["func"].pattern = re.compile(r"^func(?=\s)", re.MULTILINE)
@@ -80,7 +80,8 @@ def new_highlighter(document: QtGui.QTextDocument):
     patterns["exists"].pattern = re.compile(r"(?<=\s)exists(?=\s)", re.MULTILINE)
     patterns["exists"].text_format = fmt(COLOUR.green)
 
-    syntax_highlighter = BMLHighlighter(parent=document)
+    syntax_highlighter = BMLHighlighter()
+    syntax_highlighter.setDocument(document)
 
     for f in patterns.values():
         syntax_highlighter.add_mapping(f.pattern, f.text_format)
