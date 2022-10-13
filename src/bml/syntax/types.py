@@ -1,5 +1,21 @@
 class Complex(complex):
-    def __mod__(self, other):
-        if isinstance(self.other, ):
-            return other
-        return self
+    def __mod__(self, other: int | float | complex):
+        if isinstance(other, int | float):
+            re = self.real % other
+
+            return self.__class__(re, self.imag)
+
+        if isinstance(other, complex):
+            min_div = min(
+                self.real // other.real,
+                self.imag // other.imag,
+            )
+
+            other_copy = other * min_div
+
+            re = self.real % other_copy.real
+            im = self.imag % other_copy.imag
+
+            return self.__class__(re, im)
+
+        return NotImplemented
