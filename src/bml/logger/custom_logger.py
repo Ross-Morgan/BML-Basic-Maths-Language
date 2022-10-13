@@ -36,3 +36,9 @@ class AppLogger:
 
     def critical(self, msg: str, extra=None):
         self.logger.critical(msg, extra=extra)
+
+    def disable(self):
+        self.logger.disabled = True
+
+    def enable(self):
+        self.logger.disabled = False
