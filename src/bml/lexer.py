@@ -5,7 +5,13 @@ from syntax import chars
 from logger import AppLogger
 from tokens import Token, TokenType
 
+
+DEBUG = True
+
 logger = AppLogger("logger")
+
+if DEBUG:
+    logger.disable()
 
 
 class Lexer:
@@ -17,6 +23,7 @@ class Lexer:
 
     def advance(self):
         self.current_char = next(self.source, None)
+        print(self.current_char)
 
     def lex(self) -> Iterator[Token]:
         self.advance()
@@ -172,3 +179,20 @@ class Lexer:
                     logger.error(f"Unhandled keyword: '{s}'")
 
         return Token(TokenType.CONST, s)
+
+
+def main():
+    with open("sample/source.bml", encoding="utf-8") as f:
+        lexer = Lexer(f.read())
+
+    tokens = list(lexer.lex())
+
+    print()
+    print("---------------------------")
+    print()
+
+    print(*map(lambda t: f"{t.tt.name}: {t.value}", tokens), sep="\n")
+
+
+if __name__ == "__main__":
+    main()
