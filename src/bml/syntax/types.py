@@ -2,8 +2,9 @@ class Complex(complex):
     def __mod__(self, other: int | float | complex):
         if isinstance(other, int | float):
             re = self.real % other
+            im = self.imag % other
 
-            return self.__class__(re, self.imag)
+            return self.__class__(re, im)
 
         if isinstance(other, complex):
             min_div = min(
