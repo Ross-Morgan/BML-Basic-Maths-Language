@@ -43,7 +43,9 @@ class Parser:
 
         if self.current_token.tt is TokenType.SYM_CUSTOM:
             if self.current_token.value in self.existing_symbols:
-                return ast.nodes.AssignmentNode(symbol, ast.nodes.SymbolNode(symbol))
+                return ast.nodes.AssignmentNode(
+                    symbol, ast.nodes.SymbolNode(symbol)
+                )
 
             return ast.nodes.AssignmentNode(symbol, self.parse_assignment())
 
