@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from . import Node
+from .nodes import Node
 
 
 class Tree:

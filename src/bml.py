@@ -1,20 +1,23 @@
-from argparse import ArgumentParser, Namespace
+import sys
 
 
-class Args:
-    def __init__(self, namespace: Namespace) -> None:
-        self.filepath: str = namespace.filepath
-        self.verbose: bool = namespace.verbose
+def parse_args():
+    if len(sys.argv) < 2:
+        raise ValueError("At least 1 argument required: ")
 
-    def __repr__(self) -> str:
-        return f"Args(filepath: {self.filepath}, verbose: {self.verbose})"
+    cli_args = sys.argv[1:]
+
+    print(cli_args)
+
+    match cli_args:
+        case ["compile", filename, *args]:
+            print("Compiling...")
+
+        case ["repl", *args]:
+            print("Running repl")
+
+        case _:
+            print("No case matched")
 
 
-arg_parser = ArgumentParser()
-
-arg_parser.add_argument("filepath", required=True, help="file to interpret")
-arg_parser.add_argument("-v", "--verbose", type=bool, default=False)
-
-args = Args(arg_parser.parse_args())
-
-print(args)
+parse_args()

@@ -22,11 +22,16 @@ class TokenType(Enum):
 
     OP_MOD = auto()            # mod
     OP_SQRT = auto()           # √
-    OP_EQ = auto()             # =
     OP_ADD = auto()            # +
     OP_SUB = auto()            # -
     OP_MUL = auto()            # *
     OP_DIV = auto()            # /
+    OP_EQ = auto()             # =
+    OP_NE = auto()             # =/=
+    OP_GT = auto()             # >
+    OP_LT = auto()             # <
+    OP_GE = auto()             # >=
+    OP_LE = auto()             # <=
 
     CONST = auto()
     VAR = auto()
@@ -54,3 +59,28 @@ class Token:
 
     def __repr__(self) -> str:
         return f"Token<type: {self.tt}, value: {self.value}>"
+
+
+class Types:
+    OPERATOR_TYPES = [
+        TokenType.OP_ADD,
+        TokenType.OP_SUB,
+        TokenType.OP_MUL,
+        TokenType.OP_DIV,
+        TokenType.OP_SQRT,
+        TokenType.OP_EQ,
+        TokenType.OP_GT,
+        TokenType.OP_GE,
+        TokenType.OP_LT,
+        TokenType.OP_LE,
+        TokenType.OP_NE
+    ]
+
+    PAREN_TYPES = [
+        TokenType.SYM_LRPAREN,
+        TokenType.SYM_LSPAREN,
+        TokenType.SYM_LCPAREN,
+        TokenType.SYM_RRPAREN,
+        TokenType.SYM_RSPAREN,
+        TokenType.SYM_RCPAREN,
+    ]
