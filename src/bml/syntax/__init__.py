@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TypeVar
+__all__ = ["chars", "nodes", "types", "Tree"]
 
 from . import chars, nodes, types
 from .tree import Tree
