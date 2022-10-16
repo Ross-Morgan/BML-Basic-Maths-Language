@@ -1,7 +1,7 @@
 from copy import deepcopy
 from typing import Iterator
 
-import syntax as ast
+# import syntax as ast
 from tokens import Token, TokenType
 
 

@@ -16,7 +16,7 @@ COMMA = ","
 BACKTICK = "`"
 EQUALS = "="
 
-PARENS = r"([{}])"
+PARENS = "[{()}]"
 
 SQRT = "√"
 

@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import TypeVar
 
-from . import nodes, tree
+# from . import nodes, tree
 
 N = TypeVar("N")
 L = TypeVar("L")
@@ -21,5 +21,3 @@ class Node:
         self.rhs = rhs
 
     def compute(self): ...
-
-
