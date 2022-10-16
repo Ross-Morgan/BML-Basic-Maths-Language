@@ -30,6 +30,12 @@ class SymbolNode(Node):
 
 
 @dataclass(slots=True)
+class AssignmentNode(Node):
+    symbol: str
+    value: object
+
+
+@dataclass(slots=True)
 class NumericNode(Node):
     operator: Callable[[N, N], N_co]
 
@@ -40,9 +46,3 @@ class NumericNode(Node):
         super().compute()
 
         return self.operator(self.lhs, self.rhs)
-
-
-@dataclass(slots=True)
-class AssignmentNode(Node):
-    symbol: str
-    value: object
