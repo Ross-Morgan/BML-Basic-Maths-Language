@@ -48,6 +48,12 @@ class NumericNode(Node):
         return self.operator(self.lhs, self.rhs)
 
 
+@dataclass(slots=True, frozen=True)
+class ExistenceNode:
+    constant: str
+    set_name: str
+
+
 @dataclass(slots=True)
 class SetNode(Node):
     pass
@@ -60,4 +66,13 @@ class DefiniteSetNode(SetNode):
 
 @dataclass(slots=True)
 class IndefiniteSetNode(SetNode):
-    constants: dict[str, ExistenceExpr]
+    constants: dict[str, ExistenceNode]
+
+    def compute(self) -> N_co:
+        return self
+
+
+@dataclass(slots=True)
+class MatrixNode(Node):
+    matrix: list[list[int | float | complex]]
+    shape: tuple[int, int]
