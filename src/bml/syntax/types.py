@@ -23,9 +23,3 @@ class Complex(complex):
             return self.__class__(re, im)
 
         return NotImplemented
-
-
-@dataclass(slots=True, frozen=True)
-class ExistenceExpr:
-    constant: str
-    set_name: str
