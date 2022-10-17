@@ -4,6 +4,7 @@ from typing import Iterator
 
 import syntax as ast
 from tokens import Token, TokenType, Types
+from stack import Stack
 
 
 class Parser:
@@ -14,12 +15,14 @@ class Parser:
 
         self.existing_symbols = []
 
-        self.lparen_stack = Stack()
-        self.rparen_stack = Stack()
+        self.lparen_stack: Stack[TokenType] = Stack()
+        self.rparen_stack: Stack[TokenType] = Stack()
 
 
     def advance(self):
         self.current_token = next(self.tokens)
+
+        return self.current_token
 
     def parse(self):
         while self.current_token.tt is not TokenType.EOF:
@@ -47,13 +50,18 @@ class Parser:
 
             return ast.nodes.AssignmentNode(symbol, self.parse_assignment())
 
-        if self.current_token.tt is TokenType.TYPE_REAL:
+        if self.current_token.tt is TokenType.TYPE_REAL or self.current_token.tt is TokenType.TYPE_COMPLEX:
             return ast.nodes.AssignmentNode(symbol, self.parse_numeric())
 
-    def parse_set(self):
+    def parse_set(self) -> ast.nodes.SetNode:
+        set_name = self.advance()
+
+        self.advance()
         self.advance()
 
-        set_name = self.current_token
+        if self.current_token.tt is TokenType.SYM_LCPAREN:
+
+
 
     def parse_numeric(self):
         numeric = self.current_token
