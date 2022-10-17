@@ -46,3 +46,18 @@ class NumericNode(Node):
         super().compute()
 
         return self.operator(self.lhs, self.rhs)
+
+
+@dataclass(slots=True)
+class SetNode(Node):
+    pass
+
+
+@dataclass(slots=True)
+class DefiniteSetNode(SetNode):
+    elements: list[int | float | complex]
+
+
+@dataclass(slots=True)
+class IndefiniteSetNode(SetNode):
+    constants: dict[str, ExistenceExpr]
