@@ -54,6 +54,7 @@ class Lexer:
 
             elif self.current_char in chars.REAL_DIGITS:
                 yield self.lex_number()
+                continue
 
             else:
                 yield self.lex_text()
@@ -109,7 +110,9 @@ class Lexer:
         while True:
             self.advance()
 
-            if self.current_char is None or self.current_char in string.whitespace:  # noqa
+            if (self.current_char is None or
+                self.current_char in string.whitespace or
+                self.current_char in chars.PARENS):
                 break
 
             name.append(self.current_char)
