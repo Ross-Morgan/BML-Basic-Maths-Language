@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+
+
 class Complex(complex):
     def __mod__(self, other: int | float | complex):
         if isinstance(other, int | float):
@@ -20,3 +23,9 @@ class Complex(complex):
             return self.__class__(re, im)
 
         return NotImplemented
+
+
+@dataclass(slots=True, frozen=True)
+class ExistenceExpr:
+    constant: str
+    set_name: str
