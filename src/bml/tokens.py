@@ -20,6 +20,7 @@ class TokenType(Enum):
     KWD_INTERSECTION = auto()  # interection
     KWD_DIFFERENCE = auto()    # difference
 
+    OP_EXP = auto()            # ^ | e
     OP_MOD = auto()            # mod
     OP_SQRT = auto()           # √
     OP_ADD = auto()            # +

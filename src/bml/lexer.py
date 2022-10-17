@@ -83,8 +83,24 @@ class Lexer:
                     return Token(TokenType.SYM_ARROW)
                 else:
                     return Token(TokenType.OP_EQ)
+            case ">":
+                self.advance()
+
+                if self.current_char == "=":
+                    self.advance()
+                    return Token(TokenType.OP_GE)
+                else:
+                    return Token(TokenType.OP_GT)
+            case "<":
+                self.advance()
+
+                if self.current_char == "=":
+                    self.advance()
+                    return Token(TokenType.OP_LE)
+                else:
+                    return Token(TokenType.OP_LT)
             case _:
-                logger.error(f"Unhandled operator: '{self.current_char}'")  # noqa
+                logger.error(f"Unhandled operator: '{self.current_char}'")
 
     def lex_paren(self) -> Token:
         match self.current_char:
@@ -101,7 +117,7 @@ class Lexer:
             case "}":
                 return Token(TokenType.SYM_RCPAREN)
             case _:
-                logger.error(f"Unhandled bracket: '{self.current_char}'")  # noqa
+                logger.error(f"Unhandled bracket: '{self.current_char}'")
 
     def lex_symbol_name(self) -> Token:
         self.current_char = ""
