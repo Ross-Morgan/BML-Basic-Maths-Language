@@ -1,5 +1,4 @@
 from copy import deepcopy
-import operator
 from typing import Iterator
 
 import syntax as ast
@@ -25,6 +24,8 @@ class Parser:
         return self.current_token
 
     def parse(self):
+        tree = ast.Tree()
+
         while self.current_token.tt is not TokenType.EOF:
             self.advance()
 
@@ -34,6 +35,11 @@ class Parser:
 
                 case TokenType.KWD_SET:
                     self.parse_set()
+
+                case TokenType.KWD_MATRIX:
+                    self.parse_matrix()
+
+            
 
     def parse_assignment(self) -> ast.nodes.AssignmentNode:
         symbol = self.current_token
@@ -62,8 +68,27 @@ class Parser:
         self.advance()
 
         if self.current_token.tt is TokenType.SYM_LCPAREN:
+            self.parse_literal_set()
 
+    def parse_literal_set(self) -> ast.nodes.DefiniteSetNode:
+        elements = []
 
+        while True:
+            self.advance()
+
+            if self.current_token.tt not in [TokenType.TYPE_REAL, TokenType.TYPE_COMPLEX, TokenType.SYM_RCPAREN]:
+                #TODO Log error
+                break
+
+            if self.current_token.tt is TokenType.SYM_RCPAREN:
+                break
+
+            if self.current_token.tt is 
+
+        return ast.nodes.DefiniteSetNode(elements)
+
+    def parse_matrix(self) -> ast.nodes.MatrixNode:
+        return ast.nodes.MatrixNode([[1,0],[0,-1]], (2,2))
 
     def parse_numeric(self):
         numeric = self.current_token
