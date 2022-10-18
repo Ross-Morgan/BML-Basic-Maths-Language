@@ -8,24 +8,21 @@ class Tests:
 
     @classmethod
     def run_all(cls):
+        n = len(cls.test_cases)
+
         for i, test in enumerate(cls.test_cases):
-            test.run(_id=i, _total=len(cls.test_cases))
+            print(f"Testing \033[36m\[{i + 1}/{n}]\033[0m", end=" ")
+            test.run()
 
 
 class Test:
     def __init__(self, func: Callable):
         self.f = func
 
-    def run(self, _id=None, _total=None):
-        if _id is not None:
-            print(f"[{_id}", end="")
-            if _total is not None:
-                print(f"/{_total}", end="")
-            print("]", end="")
-
+    def run(self):
         try:
             self.f()
-            print("Test Passed")
+            print("\033[33Test Passed\033[0m")
         except AssertionError as err:
             print(f"Test Failed: {err.args}")
 
