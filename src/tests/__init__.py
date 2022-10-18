@@ -1,4 +1,4 @@
-from . import test_tree
+from . import test_tree, test_lexer
 
 from . import tests
 
