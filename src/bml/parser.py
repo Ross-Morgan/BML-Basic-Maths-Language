@@ -1,9 +1,9 @@
 from copy import deepcopy
 from typing import Iterator
 
-import syntax as ast
-from tokens import Token, TokenType, Types
-from stack import Stack
+from . import syntax as ast
+from .tokens import Token, TokenType, Types
+from .stack import Stack
 
 
 class Parser:
@@ -83,7 +83,7 @@ class Parser:
             if self.current_token.tt is TokenType.SYM_RCPAREN:
                 break
 
-            if self.current_token.tt is 
+            # if self.current_token.tt is 
 
         return ast.nodes.DefiniteSetNode(elements)
 

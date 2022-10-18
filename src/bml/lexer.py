@@ -1,9 +1,9 @@
 import string
 from typing import Iterator
 
-from syntax import chars
-from logger import AppLogger
-from tokens import Token, TokenType
+from .syntax import chars
+from .logger import AppLogger
+from .tokens import Token, TokenType
 
 
 DEBUG = True
