@@ -28,6 +28,8 @@ class Lexer:
     def lex(self) -> Iterator[Token]:
         self.advance()
 
+        yield Token(TokenType.SOF)
+
         while self.current_char is not None:
             if self.current_char in string.whitespace:
                 # NOTE Below is not necessary but it complains otherwise
