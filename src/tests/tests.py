@@ -5,6 +5,7 @@ from typing import Callable
 
 class Tests:
     test_cases: list[Test] = []
+    test_names: list[str] = []
 
     @classmethod
     def run_all(cls):
@@ -29,5 +30,6 @@ class Test:
 
 def test(func: Callable[[], None]):
     Tests.test_cases.append(Test(func))
+    Tests.test_names.append(func.__name__)
 
     return func

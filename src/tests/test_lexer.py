@@ -13,6 +13,3 @@ def test_symbol_parsing():
     """)
 
     print(source)
-
-
-test_symbol_parsing()
