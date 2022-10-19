@@ -4,6 +4,10 @@ from typing import Iterator
 from . import syntax as ast
 from .tokens import Token, TokenType, Types
 from .stack import Stack
+from .logger import AppLogger
+
+
+logger = AppLogger("app")
 
 
 class Parser:
@@ -73,11 +77,26 @@ class Parser:
     def parse_literal_set(self) -> ast.nodes.DefiniteSetNode:
         elements = []
 
+        last_was_comma = True
+
         while True:
             self.advance()
 
+            if self.current_token.tt is TokenType.SYM_COMMA:
+                if last_was_comma:
+                    logger.error("Missing element between commas")
+                    break
+                last_was_comma = True
+                continue
+            else:
+                if not last_was_comma:
+                    logger.error("Missing comma between elements")
+                    break
+                last_was_comma = False
+                continue
+
             if self.current_token.tt not in [TokenType.TYPE_REAL, TokenType.TYPE_COMPLEX, TokenType.SYM_RCPAREN]:
-                #TODO Log error
+                logger.error("Invalid set element")
                 break
 
             if self.current_token.tt is TokenType.SYM_RCPAREN:

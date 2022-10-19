@@ -4,6 +4,7 @@ from enum import Enum, auto
 
 class TokenType(Enum):
     NEWLINE = auto()           # <\n>
+    SOF = auto()               # <sof>
     EOF = auto()               # <eof>
 
     KWD_EXISTS = auto()        # exists

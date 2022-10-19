@@ -40,3 +40,4 @@ class Tree:
 class BaseNode(Node):
     lhs: Node
     rhs: Node
+
