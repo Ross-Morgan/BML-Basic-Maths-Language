@@ -4,7 +4,7 @@ from typing import Iterator
 from . import syntax as ast
 from .logger import AppLogger
 from .stack import Stack
-from .tokens import Token, TokenGroup, TokenType
+from .tokens import Token, TokenType
 
 logger = AppLogger("app")
 
