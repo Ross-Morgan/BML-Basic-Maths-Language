@@ -134,4 +134,5 @@ dmypy.json
 
 # Vscode config
 .vscode/
-.txt/
+
+*.txt
