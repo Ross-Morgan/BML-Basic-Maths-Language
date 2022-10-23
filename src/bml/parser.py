@@ -21,7 +21,6 @@ class Parser:
         self.lparen_stack: Stack[TokenType] = Stack()
         self.rparen_stack: Stack[TokenType] = Stack()
 
-
     def advance(self):
         self.current_token = next(self.tokens)
 
@@ -29,5 +28,3 @@ class Parser:
 
     def parse(self):
         pass
-
-
