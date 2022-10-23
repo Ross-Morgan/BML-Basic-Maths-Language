@@ -1,10 +1,14 @@
 import string
 from typing import Iterator
 
-from .syntax import chars
-from .logger import AppLogger
-from .tokens import Token, TokenType
-
+try:
+    from .syntax import chars
+    from .logger import AppLogger
+    from .tokens import Token, TokenType
+except ImportError:
+    from syntax import chars
+    from logger import AppLogger
+    from tokens import Token, TokenType
 
 DEBUG = True
 
@@ -214,7 +218,7 @@ def main():
     print("---------------------------")
     print()
 
-    print(*map(lambda t: f"{t.tt.name}: {t.value}", tokens), sep="\n")
+    print(*map(lambda t: f"{t.tt.name}: {t.value}", tokens), sep="\n", file=open("tokens.txt", encoding="utf-8", mode="w+"))  # noqa
 
 
 if __name__ == "__main__":
