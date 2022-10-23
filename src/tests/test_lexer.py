@@ -5,14 +5,14 @@ from bml.tokens import Token, TokenType
 
 from .tests import test
 
+SOURCE = """\
+`symbol = 20
+`symbol2 = `symbol * 2
+"""
+
 
 @test
 def test_symbol_parsing():
-    source = textwrap.dedent("""\
-    `symbol = 20
-    `symbol2 = `symbol * 2
-    """)
-
     actual_tokens = [
         Token(TokenType.SOF),
         Token(TokenType.SYM_CUSTOM, "symbol"),
@@ -28,8 +28,7 @@ def test_symbol_parsing():
         Token(TokenType.EOF),
     ]
 
-    lexer = Lexer(source)
+    lexer = Lexer(SOURCE)
     tokens = list(lexer.lex())
 
     assert actual_tokens == tokens
-
