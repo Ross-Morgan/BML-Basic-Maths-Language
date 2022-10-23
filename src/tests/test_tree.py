@@ -30,4 +30,3 @@ def test_tree_compilation():
     assert new_tree.rhs.rhs.rhs.lhs is d
     assert new_tree.rhs.rhs.rhs.rhs.lhs is e
     assert new_tree.rhs.rhs.rhs.rhs.rhs.lhs is f
-
