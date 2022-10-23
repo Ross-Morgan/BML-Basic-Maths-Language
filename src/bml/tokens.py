@@ -63,7 +63,7 @@ class Token:
         return f"Token<type: {self.tt}, value: {self.value}>"
 
 
-class Types:
+class TokenGroup:
     OPERATOR_TYPES = [
         TokenType.OP_ADD,
         TokenType.OP_SUB,
