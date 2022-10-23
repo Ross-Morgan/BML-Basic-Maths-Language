@@ -23,7 +23,6 @@ class Lexer:
 
     def advance(self):
         self.current_char = next(self.source, None)
-        print(self.current_char)
 
     def lex(self) -> Iterator[Token]:
         self.advance()
@@ -128,9 +127,10 @@ class Lexer:
         while True:
             self.advance()
 
-            if (self.current_char is None or
-                self.current_char in string.whitespace or
-                self.current_char in chars.PARENS):
+            if self.current_char is None:
+                break
+
+            if self.current_char in string.whitespace + chars.PARENS:
                 break
 
             name.append(self.current_char)
@@ -138,6 +138,10 @@ class Lexer:
         return Token(TokenType.SYM_CUSTOM, "".join(name))
 
     def lex_number(self) -> Token:
+        if self.current_char is None:
+            logger.warn("Tried to lex none-type")
+            raise ValueError
+
         logger.info(f"Lexing number: '{self.current_char}'")
         n = [self.current_char]
 
@@ -162,8 +166,6 @@ class Lexer:
         return Token(TokenType.TYPE_REAL, float("".join(n)))
 
     def lex_text(self) -> Token:
-        print(f"Lexing other: '{self.current_char}'")
-
         letters = [self.current_char]
 
         while True:
