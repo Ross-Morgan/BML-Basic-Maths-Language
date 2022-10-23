@@ -12,9 +12,8 @@ class ReplInstance:
 
     def parse_line(self, line: str):
         lexer = Lexer(line)
-        tokens = lexer.lex()
-        parser = Parser(tokens)
+        parser = Parser(lexer.lex())
 
         ast = parser.parse()
         ast = ast.compile()
-
+        ast.simplify()
