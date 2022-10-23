@@ -1,23 +1,24 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Callable, TypeVar
 
-N = TypeVar("N")
-N_co = TypeVar("N_co", covariant=True)
-
+from .custom_types import SetExpr
 
 N = TypeVar("N")
 L = TypeVar("L")
 R = TypeVar("R")
 
+N_co = TypeVar("N_co", covariant=True)
+
 
 class Node:
     """Base class for syntax tree nodes"""
+    def __init__(self, lhs: Node | L, rhs: Node | R) -> None:
+        self.lhs: Node | object
+        self.rhs: Node | object
 
-    def __init__(self, lhs: L | N, rhs: R | N):
-        self.lhs = lhs
-        self.rhs = rhs
-
-    def compute(self) -> N_co:
+    def compute(self) -> Node:
         if isinstance(self.lhs, Node):
             self.lhs = self.lhs.compute()
         if isinstance(self.rhs, Node):
@@ -67,8 +68,9 @@ class DefiniteSetNode(SetNode):
 @dataclass(slots=True)
 class IndefiniteSetNode(SetNode):
     constants: dict[str, ExistenceNode]
+    expr: SetExpr
 
-    def compute(self) -> N_co:
+    def compute(self) -> N:
         return self
 
 
