@@ -2,10 +2,9 @@ from copy import deepcopy
 from typing import Iterator
 
 from . import syntax as ast
-from .tokens import Token, TokenType, Types
-from .stack import Stack
 from .logger import AppLogger
-
+from .stack import Stack
+from .tokens import Token, TokenGroup, TokenType
 
 logger = AppLogger("app")
 
@@ -22,9 +21,13 @@ class Parser:
         self.rparen_stack: Stack[TokenType] = Stack()
 
     def advance(self):
+        """Load next token"""
         self.current_token = next(self.tokens)
 
         return self.current_token
 
-    def parse(self):
-        pass
+    def parse(self) -> ast.MultiNodeTree:
+        """Turn tokens into Abstract Syntax Tree"""
+        tree = ast.MultiNodeTree()
+
+        return tree
