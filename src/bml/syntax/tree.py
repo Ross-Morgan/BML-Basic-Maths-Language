@@ -1,11 +1,40 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import textwrap
+from dataclasses import dataclass
+
 from .nodes import Node
 
 
-class Tree:
+@dataclass(slots=True)
+class BaseNode(Node):
+    lhs: Node
+    rhs: Node
+
+
+class SingleNodeTree:
+    def __init__(self, node: Node):
+        self.node = node
+
+    def __repr__(self) -> str:
+        return f"Tree(node={self.node})"
+
+    def set_node(self, new_node: Node) -> None:
+        self.node = new_node
+
+    def simplify(self) -> None:
+        self.node.compute()
+
+    @property
+    def lhs(self):
+        return self.node.lhs
+
+    @property
+    def rhs(self):
+        return self.node.rhs
+
+
+class MultiNodeTree:
     def __init__(self) -> None:
         self.nodes: list[Node] = []
 
@@ -14,30 +43,27 @@ class Tree:
              Tree(
              length={len(self.nodes)})"
              nodes={self.nodes}
-             )
-             """
+             )"""
 
         return textwrap.dedent(x)
 
     def add_node(self, node: Node) -> None:
         self.nodes.append(node)
 
-    def compile(self) -> Tree:
-        cls = self.__class__
+    def compile(self) -> SingleNodeTree:
+        """
+        Takes multi-node tree and returns a single-node tree
+        """
+        nodes = self.nodes
 
-        last_node = self.nodes.pop()
+        current_node = None
+        last_node = None
 
-        for node in reversed(self.nodes):
-            last_node = Node(node, last_node)
+        # Run until nodes is exhausted
+        while nodes:
+            current_node = nodes.pop()
+            last_node = BaseNode(current_node, last_node)
 
-        new_tree = cls()
-        new_tree.add_node(last_node)
+        new_tree = SingleNodeTree(last_node)
 
         return new_tree
-
-
-@dataclass(slots=True)
-class BaseNode(Node):
-    lhs: Node
-    rhs: Node
-
